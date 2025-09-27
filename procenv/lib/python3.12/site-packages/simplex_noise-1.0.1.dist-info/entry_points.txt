@@ -1,0 +1,2 @@
+[console_scripts]
+simplex-noise = simplex_noise:main

@@ -1,0 +1,17 @@
+{
+	"version":2,
+	"builds":[
+	{
+		"src":"api/*.py",
+		"use":"@vercel/python",
+		"config":{
+			"runtime":"python3.11"
+		}
+	}],
+	"routes":[
+		{
+			"src":"/noise_map",
+			"dest": "/api/main.py"
+		}
+	]
+}
