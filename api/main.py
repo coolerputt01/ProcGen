@@ -1,7 +1,9 @@
 from opensimplex import OpenSimplex
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 map_width = 128
 map_height = 128
