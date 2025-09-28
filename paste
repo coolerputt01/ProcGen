@@ -1,0 +1,14 @@
+
+
+
+// start loading animation immediately
+
+
+tileset.onload = async () => {
+  await getNoiseMap();
+  if (!noise_maps) return;
+  loading = false; // stop the loader
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  const grid = new GridMap(noise_maps);
+  grid.generate_map();
+};

@@ -15,11 +15,35 @@ const textureFilePath = "textures/Textures-16.png";
 const tileset = new Image();
 tileset.src = textureFilePath;
 
-function getTileIndex(noise_value){
-  if(noise_value < -0.3) return 135; // water
-  else if(noise_value < 0) return 156; // sand
-  else if(noise_value < 0.3) return 255; // grass 
-  else return 255; // mountain
+let loading = true;
+let angle = 0;
+
+
+function drawLoadingCircle() {
+  if (!loading) return;
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const radius = 40;
+
+  context.beginPath();
+  context.arc(cx, cy, radius, angle, angle + Math.PI * 1.5);
+  context.lineWidth = 8;
+  context.strokeStyle = "#3498db";
+  context.stroke();
+
+  angle += 0.2;
+  requestAnimationFrame(drawLoadingCircle);
+}
+
+function getTileIndex(noise_value) {
+  if (noise_value < -0.2) return 32;    // water
+  else if (noise_value < 0) return 135; // sand
+  else if (noise_value < 0.3) return 130; // grass
+  else if (noise_value < 0.6) return 149; // dirt
+  else if (noise_value < 0.8) return 244; // stone
+  else return 255; // mountain/ore
 }
 
 class GridMap {
@@ -50,10 +74,13 @@ async function getNoiseMap() {
     console.error("An error occurred while fetching from the API: ", error);
   }
 }
-
+drawLoadingCircle();
 tileset.onload = async () => {
     console.log("hey");
     await getNoiseMap();
+    loading = false;
+    context.clearRect(0,0,canvas.width,canvas.height);
     const grid = new GridMap(noise_maps);
+    if(!noise_maps) throw new Error("No Noisemap generated");
     grid.generate_map();
 };
