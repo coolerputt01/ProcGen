@@ -1,8 +1,9 @@
 const NOISE_MAP_API_URL = "https://procgen-nu.vercel.app/noise_map";
 const canvas = document.querySelector("#map_renderer");
 const context = canvas.getContext('2d');
-canvas.width = 700;
-canvas.height = 700;
+var dpr = window.devicePixelRatio || 1;
+canvas.width = 700 * dpr;
+canvas.height = 700 * dpr;
 
 var noise_maps;
 
