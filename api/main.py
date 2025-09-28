@@ -1,6 +1,7 @@
 from opensimplex import OpenSimplex
 from flask import Flask, jsonify
 from flask_cors import CORS
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -8,7 +9,8 @@ CORS(app)
 map_width = 128
 map_height = 128
 ascii_map_text = ["~","^","*","∆"]
-tmp = OpenSimplex(seed=1234)
+seed = int(time.time())
+tmp = OpenSimplex(seed=seed)
 noise_grid = [[0 for _ in range(map_width)] for _ in range(map_height)]
 # print(f"2D noise: {noise}")
 
